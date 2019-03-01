@@ -3,6 +3,7 @@ package gone;
 public class Player_White {
 	//TODO Write remaining pseudo-code
 	//int[] adjacent spaces
+	//field for int value representing number of turns
 	
 	/*
 	 * private Player_White(board space){
