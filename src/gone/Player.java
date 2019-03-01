@@ -3,9 +3,10 @@ package gone;
 public interface Player {
 	//TODO Write remaining pseudo-code
 	/*
-	 * Both players should be able to :
+	 * Both player pieces should be able to :
 	 * 
-	 * Check adjacency to other pieces
-	 * Check if piece is white
+	 * Return Integer array containing spaces adjacent to current piece
+	 *
+	 *	Return boolean denoting whether piece is white or black
 	 */
 }

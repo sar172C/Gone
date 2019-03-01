@@ -5,14 +5,14 @@ public class Player_Black {
 	//int[] adjacent spaces
 	
 	/*
-	 * private Player_Black(board space){
-	 * 		adjacent = blank integer array
+	 * private Player_Black(){
+	 * 		adjacent spaces= blank integer array
 	 * }
 	 */
 	
 	/*
 	 * private Player_Black(board space, number of columns){
-	 * 		adjacent = getAdjacentSpaces(board space, number of columns)
+	 * 		adjacent spaces = getAdjacentSpaces(board space, number of columns)
 	 */
 
 	/*

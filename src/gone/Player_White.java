@@ -6,14 +6,14 @@ public class Player_White {
 	//field for int value representing number of turns
 	
 	/*
-	 * private Player_White(board space){
-	 * 		adjacent = blank integer array
+	 * private Player_White(){
+	 * 		adjacent spaces = blank integer array
 	 * }
 	 */
 	
 	/*
 	 * private Player_White(board space, number of columns){
-	 * 		adjacent = getAdjacentSpaces(board space, number of columns)
+	 * 		adjacent spaces = getAdjacentSpaces(board space, number of columns)
 	 */
 	
 	
