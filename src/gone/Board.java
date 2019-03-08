@@ -1,20 +1,23 @@
 package gone;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class Board {
 	
 	/*
-	 * field representing the board 
+	 * fields representing the board and it's number of columns
 	*/
 	Map<Integer, Piece> boardConfiguration = new HashMap<Integer, Piece>();
+	int columns;
 	
 	
 	/*
 	 * Constructor takes a hashmap representation of the board
 	 */
-	private Board(HashMap<Integer, Piece> boardConfiguration) {
+	private Board(HashMap<Integer, Piece> boardConfiguration, int columns) {
 		this.boardConfiguration = boardConfiguration;
+		this.columns = columns;
 	}
 	
 	/**
@@ -30,7 +33,7 @@ public class Board {
 		//run the depth first search recursion through every initial white piece
 		while(iter.hasNext()) {
 			tempPiece = iter.next();	
-			pieceIterations = recurseAdjacents(tempPiece, tempPiece.adjacentSet());
+			pieceIterations = recurseAdjacents(tempPiece, tempPiece.adjacentSet(this.getPieceLocation(tempPiece), columns));
 			if(pieceIterations > totalIterations) {
 				totalIterations = pieceIterations;
 			}
@@ -43,6 +46,8 @@ public class Board {
 	 * returns the number of iterations through list of adjacent pieces it took to flip all connect black pieces to white
 	 */
 	public int recurseAdjacents(Piece piece, int[] adjacents) {
+		Objects.requireNonNull(piece, "enter a piece that exists on the board");
+		Objects.requireNonNull(adjacents, "enter a non null array of adjacent pieces");
 		//set this piece to white
 		piece.setWhite();
 		int iterations = 0;
@@ -51,7 +56,7 @@ public class Board {
 			Piece currentPiece = this.boardConfiguration.get(adjacents[index]);
 			//if the piece is not white, change it to black and 
 			if(!currentPiece.isWhite()) {
-				recurseAdjacents(currentPiece, currentPiece.adjacentSet());
+				recurseAdjacents(currentPiece, currentPiece.adjacentSet(this.getPieceLocation(currentPiece), columns));
 			}
 		}
 		return iterations++;
@@ -72,7 +77,20 @@ public class Board {
 		}
 		return initialWhitePieces;
 	}
-	
+
+	/*
+	 * returns the location/space of the piece
+	 */
+	public int getPieceLocation(Piece piece) {
+		Objects.requireNonNull(piece, "enter a piece that is not null");
+		for (Entry<Integer, Piece> entry : this.boardConfiguration.entrySet()) {
+			if (Objects.equals(piece, entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return -1;
+	}
+
 	/*
 	 * checks to see if there are any black pieces
 	 */

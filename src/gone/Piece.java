@@ -5,8 +5,7 @@ import java.util.Map;
 public class Piece {
 	//TODO Write remaining pseudo-code
 	//int[] adjacent spaces
-	int space;
-	int columns;
+
 	int[] adjacentSpaces;
 	boolean isWhite;
 
@@ -23,10 +22,8 @@ public class Piece {
 	// private Player_Black(board space, number of columns){
 	public Piece(int space, int columns, boolean isWhite) {
 		//	adjacent spaces = get adjacent pieces(board space, number of columns)
-		this.space = space;
-		this.columns = columns;
 		this.isWhite = isWhite;
-		adjacentSpaces = adjacentSet();
+		adjacentSpaces = adjacentSet(space, columns);
 	}
 
 	/*
@@ -35,7 +32,7 @@ public class Piece {
 	 * Check adjacency to other objects
 	 */
 	//(Integer Array) getAdjacentSpaces(board space, number of columns) {
-	int[] adjacentSet() {
+	int[] adjacentSet(int space, int columns) {
 		//output = array to hold board spaces
 		int[] output = new int[4];
 		//if there is a piece at (This pieces space minus number of columns), and that space to array
