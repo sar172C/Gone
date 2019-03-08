@@ -15,7 +15,7 @@ public class Board {
 	/*
 	 * Constructor takes a hashmap representation of the board
 	 */
-	private Board(HashMap<Integer, Piece> boardConfiguration, int columns) {
+	Board(Map<Integer, Piece> boardConfiguration, int columns) {
 		this.boardConfiguration = boardConfiguration;
 		this.columns = columns;
 	}
@@ -25,14 +25,14 @@ public class Board {
 	 */
 	
 	public int findIterations() {
-		List<Piece> initialWhitePieces = this.findInitialWhitePieces();
-		Piece tempPiece = new Piece();						//placeholder piece used during iteration of list of initial white pieces
+		List<Integer> initialWhitePieces = this.findInitialWhitePieces();
+		Piece tempPiece;						//placeholder piece used during iteration of list of initial white pieces
 		int totalIterations = 0;							//highest number of iterations
 		int pieceIterations = 0;							//# of iterations for the current white piece
-		Iterator<Piece> iter = initialWhitePieces.iterator();	
+		Iterator<Integer> iter = initialWhitePieces.iterator();	
 		//run the depth first search recursion through every initial white piece
 		while(iter.hasNext()) {
-			tempPiece = iter.next();	
+			tempPiece = this.boardConfiguration.get(iter.next());	
 			pieceIterations = recurseAdjacents(tempPiece, tempPiece.adjacentSet(this.getPieceLocation(tempPiece), columns));
 			if(pieceIterations > totalIterations) {
 				totalIterations = pieceIterations;
@@ -53,6 +53,7 @@ public class Board {
 		int iterations = 0;
 		//go through every piece in the adjacents list
 		for(int index = 0; index < adjacents.length; index++) {
+			if(!this.boardConfiguration.containsKey(adjacents[index])) continue;
 			Piece currentPiece = this.boardConfiguration.get(adjacents[index]);
 			//if the piece is not white, change it to black and 
 			if(!currentPiece.isWhite()) {
@@ -66,14 +67,14 @@ public class Board {
 	 * returns a list of all the white pieces at the start of the game before pebble switching has occured
 	 */
 	
-	public List<Piece> findInitialWhitePieces() {
+	public List<Integer> findInitialWhitePieces() {
 		Map<Integer, Piece> board = this.boardConfiguration;
 		//iterates through the entire board
-		List<Piece> initialWhitePieces = new ArrayList<Piece>();
+		List<Integer> initialWhitePieces = new ArrayList<Integer>();
 		for(int key : board.keySet()) {
 			//if a piece is white, add it to the list
 			if(board.get(key).isWhite())
-				initialWhitePieces.add(board.get(key));
+				initialWhitePieces.add(key);
 		}
 		return initialWhitePieces;
 	}
@@ -106,6 +107,8 @@ public class Board {
 		 return hasBlackPiece;
 	 }
 
-	
+	public Map<Integer, Piece> getBoardConfig(){
+		return this.boardConfiguration;
+	}
 
 }
