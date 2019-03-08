@@ -19,7 +19,7 @@ public class BoardTest {
 		 * 4x4 board
 		 * B,W,W,E
 		 * E,B,W,B
-		 * B,E,E,W
+		 * B,B,E,W
 		 * B,E,W,B
 		 */
 	
@@ -31,6 +31,8 @@ public class BoardTest {
 		boardconfig.put(new Integer(6), new Piece(6, 4, true));
 		boardconfig.put(new Integer(7), new Piece(7, 4, false));
 		boardconfig.put(new Integer(8), new Piece(8, 4, false));
+		boardconfig.put(new Integer(9), new Piece(9, 4, false));
+
 		boardconfig.put(new Integer(11), new Piece(11, 4, true));
 		boardconfig.put(new Integer(12), new Piece(12, 4, false));
 		boardconfig.put(new Integer(14), new Piece(14, 4, true));
@@ -61,7 +63,13 @@ public class BoardTest {
 	@Test
 	public void testRecurse() {
 		Board board = new Board(boardconfig, 4);
-		Piece testPiece = board.getBoardConfig().get(0);
-		System.out.println(board.recurseAdjacents(testPiece, testPiece.adjacentSpaces));
+		Piece testPiece = board.getBoardConfig().get(1);
+		System.out.println(board.recurseAdjacents(testPiece, testPiece.adjacentSpaces, 0));
+	}
+	
+	@Test
+	public void testFindIterations() {
+		Board board = new Board(boardconfig, 4);
+		System.out.println(board.findIterations());
 	}
 }

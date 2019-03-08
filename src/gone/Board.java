@@ -50,15 +50,15 @@ public class Board {
 		Objects.requireNonNull(adjacents, "enter a non null array of adjacent pieces");
 		//set this piece to white
 		piece.setWhite();
-		iterations++;
 		//go through every piece in the adjacents list
 		for(int index = 0; index < adjacents.length; index++) {
 			if(!this.boardConfiguration.containsKey(adjacents[index])) continue;
 			Piece currentPiece = getBoardConfig().get(adjacents[index]);
 			//if the piece is not white, change it to black and 
 			if(!currentPiece.isWhite()) {
-				recurseAdjacents(currentPiece, currentPiece.adjacentSet(this.getPieceLocation(currentPiece), columns), iterations);
+				iterations = recurseAdjacents(currentPiece, currentPiece.adjacentSet(this.getPieceLocation(currentPiece), columns), iterations+1);
 			}
+			
 		}
 		return iterations;
 	}

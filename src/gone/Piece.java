@@ -1,7 +1,5 @@
 package gone;
 
-import java.util.Map;
-
 public class Piece {
 	//TODO Write remaining pseudo-code
 	//int[] adjacent spaces
