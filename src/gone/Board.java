@@ -32,8 +32,8 @@ public class Board {
 		Iterator<Integer> iter = initialWhitePieces.iterator();	
 		//run the depth first search recursion through every initial white piece
 		while(iter.hasNext()) {
-			tempPiece = this.boardConfiguration.get(iter.next());	
-			pieceIterations = recurseAdjacents(tempPiece, tempPiece.adjacentSet(this.getPieceLocation(tempPiece), columns));
+			tempPiece = getBoardConfig().get(iter.next());	
+			pieceIterations = recurseAdjacents(tempPiece, tempPiece.adjacentSet(this.getPieceLocation(tempPiece), columns), pieceIterations);
 			if(pieceIterations > totalIterations) {
 				totalIterations = pieceIterations;
 			}
@@ -45,22 +45,22 @@ public class Board {
 	 * helper routine to run DFS search through a white_piece to turn all adjacent pieces from black to white
 	 * returns the number of iterations through list of adjacent pieces it took to flip all connect black pieces to white
 	 */
-	public int recurseAdjacents(Piece piece, int[] adjacents) {
+	public int recurseAdjacents(Piece piece, int[] adjacents, int iterations) {
 		Objects.requireNonNull(piece, "enter a piece that exists on the board");
 		Objects.requireNonNull(adjacents, "enter a non null array of adjacent pieces");
 		//set this piece to white
 		piece.setWhite();
-		int iterations = 0;
+		iterations++;
 		//go through every piece in the adjacents list
 		for(int index = 0; index < adjacents.length; index++) {
 			if(!this.boardConfiguration.containsKey(adjacents[index])) continue;
-			Piece currentPiece = this.boardConfiguration.get(adjacents[index]);
+			Piece currentPiece = getBoardConfig().get(adjacents[index]);
 			//if the piece is not white, change it to black and 
 			if(!currentPiece.isWhite()) {
-				recurseAdjacents(currentPiece, currentPiece.adjacentSet(this.getPieceLocation(currentPiece), columns));
+				recurseAdjacents(currentPiece, currentPiece.adjacentSet(this.getPieceLocation(currentPiece), columns), iterations);
 			}
 		}
-		return iterations++;
+		return iterations;
 	}
 	
 	/*
@@ -84,12 +84,13 @@ public class Board {
 	 */
 	public int getPieceLocation(Piece piece) {
 		Objects.requireNonNull(piece, "enter a piece that is not null");
-		for (Entry<Integer, Piece> entry : this.boardConfiguration.entrySet()) {
+		int location = 0;
+		for (Entry<Integer, Piece> entry : getBoardConfig().entrySet()) {
 			if (Objects.equals(piece, entry.getValue())) {
-				return entry.getKey();
+				location = entry.getKey();
 			}
 		}
-		return -1;
+		return location;
 	}
 
 	/*

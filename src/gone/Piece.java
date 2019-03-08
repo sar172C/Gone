@@ -33,21 +33,19 @@ public class Piece {
 	 */
 	//(Integer Array) getAdjacentSpaces(board space, number of columns) {
 	int[] adjacentSet(int space, int columns) {
-		int end = columns*columns;
 		//output = array to hold board spaces
 		int[] output = new int[4];
 		//if there is a piece at (This pieces space minus number of columns), and that space to array
-		if((space-columns) > 0) output[0] = space-columns;
-		else output[0] = -1;
+		if((space-columns) > 0) {
+				output[0] = space-columns;
+			}	
 		//if there is a piece at (This pieces space plus number of columns), add that space to array
-		if((space+columns) < end) output[1] = space+columns;
-		else output[1] = -1;
+			output[1] = space+columns;
 		//if there is a piece at (This space +1) add space to array
-		if((space+1) < end) output[2] = space+1;
-		else output[2] = -1;
+			output[2] = space+1;
+		
 		//if there is a piece at (this space -1) add to array
-		if((space-1) >= 0) output[3] = space-1;
-		else output[3] = -1;
+			output[3] = space-1;
 		return output;
 	}
 
@@ -62,7 +60,7 @@ public class Piece {
 		isWhite = true;
 	}
 
-	
+
 
 
 }
